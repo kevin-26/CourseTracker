@@ -3,3 +3,7 @@ Lib/
 Scripts/
 chromedriver.exe
 pyvenv.cfg
+google-classroom/classroom-cli/credentials.json
+.vscode/
+google-classroom/classroom-cli/token.pickle
+google-classroom/classroom-cli/utils/__pycache__
