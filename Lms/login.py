@@ -8,7 +8,7 @@ def logIn(driver : webdriver, user_id : str, password : str):
     driver.get("https://lms-kjsce.somaiya.edu/login/index.php")
     login = WebDriverWait(driver, timeout = 10).until(expected_conditions.element_to_be_clickable((By.CLASS_NAME, "potentialidp")))
     login.find_element_by_class_name("btn").click()
-    time.sleep(1)
+    # time.sleep(1)
     while(True):
         driver.find_element_by_id("identifierId").send_keys(user_id)
         driver.find_element_by_id("identifierNext").click()
@@ -28,7 +28,7 @@ def logIn(driver : webdriver, user_id : str, password : str):
             print("Kindly try again. One of the following reasons may be possible for the error:\n1. No internet connection\n2. You have 2-factor authentication enabled for your mail account")
             return False
     while(True):
-        driver.find_element_by_name("password").send_keys(password)
+        WebDriverWait(driver, timeout = 10).until(expected_conditions.visibility_of_element_located((By.NAME, "password"))).send_keys(password)
         driver.find_element_by_id("passwordNext").click()
         time.sleep(3)
         if 'edu/my' in driver.current_url:
@@ -49,14 +49,33 @@ def logIn(driver : webdriver, user_id : str, password : str):
             print("Kindly try again. One of the following reasons may be possible for the error:\n1. No internet connection\n2. You have 2-factor authentication enabled for your mail account")
             return False
     
+def getCourseList (driver: webdriver):
+    time.sleep(1)
+    a = driver.find_element_by_id("page-container-1")
+    l = a.find_elements(By.CSS_SELECTOR, "div[class='card dashboard-card']")
+    id = []
+    for i in l:
+        name = i.find_elements_by_tag_name('div')[1].find_element_by_tag_name('div').find_element_by_tag_name('a').find_element_by_class_name('multiline').text
+        print("Are you currently enrolled in", name,"? (Y/N)")
+        if input().lower() == 'y':
+            id.append("https://lms-kjsce.somaiya.edu/course/view.php?id=" + str(i.get_attribute('data-course-id')))
+    return id
+
+
 driver = webdriver.Chrome(executable_path=r"../chromedriver.exe")
 r = requests.get("https://lms-kjsce.somaiya.edu/my", allow_redirects=False)
 if r.status_code >= 300:
-    user_id = ""
+    user_id = "kevin26@somaiya.edu"
     password = ""
     while not logIn(driver, user_id, password):
         user_id = input("Please enter your mail-id:").strip()
         password = input("Please enter your password:").strip()
     print("Logged in")
+    time.sleep(3)
+    a = WebDriverWait(driver, timeout = 5).until(expected_conditions.visibility_of_element_located((By.ID, "paging-control-limit-container-1")))
+    a.find_element_by_tag_name("button").click()
+    a.find_elements_by_tag_name('a')[2].click()
+    l = getCourseList(driver)
+    print(l)
 else:
     print("Logged in")
