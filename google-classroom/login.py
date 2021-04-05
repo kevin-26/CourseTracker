@@ -47,16 +47,15 @@ def logIn(driver : webdriver, user_id : str, password : str):
             print("Kindly try again. One of the following reasons may be possible for the error:\n1. No internet connection\n2. You have 2-factor authentication enabled for your mail account")
             return False
     
-def getCourseList (driver: webdriver):
-    time.sleep(1)
-    a = driver.find_element_by_id("page-container-1")
-    l = a.find_elements(By.CSS_SELECTOR, "div[class='card dashboard-card']")
+def getCourseList (driver: webdriver) -> []:
+    l = driver.find_elements_by_tag_name('li')
     id = []
     for i in l:
-        name = i.find_elements_by_tag_name('div')[1].find_element_by_tag_name('div').find_element_by_tag_name('a').find_element_by_class_name('multiline').text
-        print("Are you currently enrolled in", name,"? (Y/N)")
+        j = i.find_element_by_tag_name('div').get_attribute("class").split('-')[1]
+        name = i.find_element_by_tag_name('h2').find_element_by_tag_name('div').text
+        print("Are you currently enrolled in", name,"(Y/N)? ", end = '')
         if input().lower() == 'y':
-            id.append("https://lms-kjsce.somaiya.edu/course/view.php?id=" + str(i.get_attribute('data-course-id')))
+            id.append("classroom.google.com/u/0/c/" + j)
     return id
 
 
@@ -69,11 +68,8 @@ if r.status_code >= 300:
         user_id = input("Please enter your mail-id:").strip()
         password = input("Please enter your password:").strip()
     print("Logged in")
-    # time.sleep(3)
-    # a = WebDriverWait(driver, timeout = 5).until(expected_conditions.visibility_of_element_located((By.ID, "paging-control-limit-container-1")))
-    # a.find_element_by_tag_name("button").click()
-    # a.find_elements_by_tag_name('a')[2].click()
-    # l = getCourseList(driver)
-    # print(l)
+    time.sleep(4)
+    l = getCourseList(driver)
+    print(l)
 else:
     print("Logged in")

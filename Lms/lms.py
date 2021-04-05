@@ -7,8 +7,9 @@ from selenium.webdriver.common.by import By
 driver = webdriver.Chrome(executable_path=r"../chromedriver.exe")
 r = requests.get("https://lms-kjsce.somaiya.edu/my", allow_redirects=False)
 if r.status_code >= 300:
-    user_id = "kevin26@somaiya.edu"
-    password = ""
+    user_id = input("Please enter your mail-id:")
+    # "kevin26@somaiya.edu"
+    password = input("Please enter your password:")
     while not login.logIn(driver, user_id, password):
         user_id = input("Please enter your mail-id:").strip()
         password = input("Please enter your password:").strip()
