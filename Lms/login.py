@@ -38,7 +38,7 @@ def logIn(driver : webdriver, user_id : str, password : str):
             temp = driver.find_element_by_id("password").get_attribute("outerHTML")
             temp = temp[temp.index("aria-invalid") + 14]
             if temp == 't':
-                password = input("Invalid password. \nPlease enter the password:")
+                password = getpass.getpass(prompt='Invalid password. Please enter your password: ', stream=None).strip()
                 driver.find_element_by_name("password").clear()
             else:
                 print("Kindly try again. One of the following reasons may be possible for the error:\n1. No internet connection\n2. You have 2-factor authentication enabled for your mail account")
