@@ -1,0 +1,16 @@
+
+
+
+/* @font-face */
+
+@font-face {
+    font-family: "PT Mono";
+    font-size: 100%;
+    src: "../fonts/PT-Mono/PTMono-Regular.ttf";
+}
+
+@font-face {
+    font-family: "Jost";
+    font-size: 100%;
+    src: "../fonts/Jost/Jost-Regular.ttf";
+}
