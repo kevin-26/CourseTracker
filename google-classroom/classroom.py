@@ -20,7 +20,16 @@ else:
     print("Logged in")
     
     
-time.sleep(6)
+while not WebDriverWait(driver, timeout = 10).until(expected_conditions.element_to_be_clickable((By.CLASS_NAME, "gHz6xd"))):
+    time.sleep(2)
+check_height = driver.execute_script("return document.body.scrollHeight;")
+while True:
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    time.sleep(4)
+    height = driver.execute_script("return document.body.scrollHeight;") 
+    if height == check_height: 
+        break 
+    check_height = height     
 l = login.getCourseList(driver)
 for i in l:
     course.courseDetails(driver, i)
