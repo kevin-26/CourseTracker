@@ -1,12 +1,7 @@
 # Portfolio
 
-- [X] Adding Projects
-- [X] Adding Footer
-- [X] Adding Trasparent navbar
-- [X] Adding Notes section
-- [ ] Adding Play section
+- [X] Adding Home
+- [X] Adding Subject view
+- [X] Adding submission view
+- [X] Adding assignment view
 - [ ] Adding 404 Not Found
-- [ ] Adding Contact Form
-- [ ] Adding Loading animation
-- [ ] Adding achievement section
-
