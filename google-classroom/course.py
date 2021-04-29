@@ -36,9 +36,35 @@ def courseDetails(driver: webdriver, url: str):
         total[i[0]].click()
         time.sleep(2)
         assignment = BeautifulSoup(driver.page_source, "lxml")
-        details = assignment.find(name="div", attrs={"class":"W4hhKd"}).contents
+        details = assignment.find_all(name="div", attrs={"class":"W4hhKd"})[-1].contents
         i.append(details[1].string) #due date
-        i.append(details[0].contents[0].contents[0].string) #max marks
+        if i[-1] is None:
+            i[-1] = "No due date"
+        #i.append(details[0].contents[0].contents[0].string) #max marks
+        if len(details[0].contents) == 0:
+            i.append("No marks mentioned")
+            i.append("No marks received")
+        else:
+            temp = details[0].contents[0].contents[0].contents
+            if len(temp) > 1:
+                i.append(temp[1].string.split()[-1])
+                i.append(temp[1].string.split()[0])
+            else:
+                i.append(temp[0])
+                i.append("No marks received")
+        details = assignment.find_all(name="aside", attrs={"class":"asCVDb"})[-1].contents[0].contents[0].contents[1].contents[0]
+        if details.contents[0].string[0] == 'A':
+            i.append(details.contents[0].string + " (Not submitted)")
+        else:
+            i.append(details.contents[0].string)
+        i[0] = driver.current_url
         driver.find_element_by_tag_name("nav").find_element_by_tag_name("div").find_element_by_tag_name("div").find_element_by_tag_name("div").find_element_by_tag_name("h1").find_element_by_tag_name("a").click()
-        time.sleep(3)
+        time.sleep(2)
     print(assign)
+    for i in material:
+        total[i[0]].click()
+        time.sleep(2)
+        i[0] = driver.current_url
+        driver.find_element_by_tag_name("nav").find_element_by_tag_name("div").find_element_by_tag_name("div").find_element_by_tag_name("div").find_element_by_tag_name("h1").find_element_by_tag_name("a").click()
+        time.sleep(2)
+    print(material)
