@@ -4,6 +4,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 
+
 driver = webdriver.Chrome(executable_path=r"../chromedriver.exe")
 r = requests.get("https://lms-kjsce.somaiya.edu/my", allow_redirects=False)
 if r.status_code >= 300:

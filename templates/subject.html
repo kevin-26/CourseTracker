@@ -18,7 +18,7 @@
       crossorigin="anonymous"
     />
     <!-- font awesome icons -->
-    <link rel="stylesheet" href="./assests/css/all.min.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}" />
     <!-- iconify icons -->
     <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
     <!-- devicon icons -->
@@ -27,7 +27,7 @@
       href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.11.0/devicon.min.css"
     />
     <!-- custom css files   -->
-    <link rel="stylesheet" href="./assests/css/styles.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
   </head>
   <body>
     <!--  ======================= Start Header Area ============================== -->
@@ -172,6 +172,6 @@
       integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
       crossorigin="anonymous"
     ></script>
-    <script src="./assests/js/all.min.js"></script>
+    <script src="{{ url_for('static', filename='js/all.min.js') }}"></script>
   </body>
 </html>

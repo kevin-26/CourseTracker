@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 import requests, time
 
+
 def getSubject(driver, url : str) -> {} :
     driver.get(url)
     time.sleep(3)
