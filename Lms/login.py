@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
-import requests, time
+import requests, time, getpass
 
 def logIn(driver : webdriver, user_id : str, password : str):
     driver.get("https://lms-kjsce.somaiya.edu/login/index.php")
@@ -33,7 +33,6 @@ def logIn(driver : webdriver, user_id : str, password : str):
         time.sleep(3)
         if 'edu/my' in driver.current_url:
             return True
-            break
         try:
             temp = driver.find_element_by_id("password").get_attribute("outerHTML")
             temp = temp[temp.index("aria-invalid") + 14]
@@ -42,10 +41,18 @@ def logIn(driver : webdriver, user_id : str, password : str):
                 driver.find_element_by_name("password").clear()
             else:
                 print("Kindly try again. One of the following reasons may be possible for the error:\n1. No internet connection\n2. You have 2-factor authentication enabled for your mail account")
+                driver.get("https://lms-kjsce.somaiya.edu/login/index.php")
+                time.sleep(3)
+                if 'edu/my' in driver.current_url:
+                    return True
                 return False
         except:
             if 'edu/my' in driver.current_url:
-                break
+                return True
+            driver.get("https://lms-kjsce.somaiya.edu/login/index.php")
+            time.sleep(3)
+            if '0/h' in driver.current_url:
+                return True
             print("Kindly try again. One of the following reasons may be possible for the error:\n1. No internet connection\n2. You have 2-factor authentication enabled for your mail account")
             return False
     

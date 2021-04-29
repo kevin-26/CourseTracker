@@ -1,3 +1,3 @@
 from flask import Flask
-from google-classroom import *
+from google_classroom import *
 from Lms import *

@@ -54,12 +54,12 @@ def logIn(driver : webdriver, user_id : str, password : str):
                 return False
         except:
             if '0/h' in driver.current_url:
-                break
-            print("Kindly try again. One of the following reasons may be possible for the error:\n1. No internet connection\n2. You have 2-factor authentication enabled for your mail account")
+                return True
             driver.get("https://classroom.google.com/u/0/h")
             time.sleep(3)
             if '0/h' in driver.current_url:
                 return True
+            print("Kindly try again. One of the following reasons may be possible for the error:\n1. No internet connection\n2. You have 2-factor authentication enabled for your mail account")
             return False
     
 def getCourseList (driver: webdriver) -> []:
