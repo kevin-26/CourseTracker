@@ -86,3 +86,25 @@ def subject(id):
                 elif details.get("is_resource") == 0:
                     s.append([list(z.items())[0][0], details.get("url"), details.get("upload_time"), details.get("due_date"), details.get("submission"), details.get("marks_received"), details.get("max_marks")])
     return render_template("subject.html", resources = r, assignments = s, subject = value[0])
+    
+@app.route("/assignments")
+def assignment():
+    p, s = [], []
+    for i in subjects.values():
+        if type(i[1]) is list:
+            for j in i[1][0]:
+                if j[-1][0] == 'T' || j[-1][0] == 'G':
+                    s.append([j[1], j[0], j[2], j[3], j[5], j[4]])
+                else:
+                    p.append([j[1], j[0], j[2], j[3], j[4]])
+        else:
+            for j, k in i[1].items():
+                for z in k[-1:0:-1]:
+                    details = list(z.items())[0][1]
+                    if details.get("is_resource") == 0:
+                        if details.get("submission")[0] == "N":
+                            p.append([list(z.items())[0][0], details.get('url'), details.get("upload_time"), details.get("due_date"), details.get("max_marks")])
+                        else:
+                            s.append([list(z.items())[0][0], details.get("url"), details.get("upload_time"), details.get("due_date"), details.get("marks_received"), details.get("max_marks")])
+    return render_template("assignment.html", p = p, s = s, subject="Test")
+            
