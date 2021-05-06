@@ -3,10 +3,14 @@ from Lms import *
 from google_classroom import *
 import dateparser, datetime
 from flask import render_template
+import base64
+
+subjects = {}
 
 @app.route("/", methods=["GET"])
 @app.route("/home", methods=["GET"])
 def home():
+    global subjects
     #Reqd: [[Subject_Name_1, [[Res-Title, URL], [Res-Titel, URL]], [[S-Title, URL], [S-Title, URL]]], [Subject_Name_2, [[Res-Title, URL], [Res-Titel, URL]], [[S-Title, URL], [S-Title, URL]]], .....................]
     #google: [[URL, Name, Date posted, Due Date, Max possible marks, Marks received, Submitted/Assigned/Graded],...]
     #google_s: [[URL, Name],..]
@@ -14,7 +18,9 @@ def home():
     #print(google_s, google)
     #Latest assignments based on due date
     for i in range(len(google_s)):
-        temp = [google_s[i][1], [[], []]]
+        base = str(base64.b64encode(bytes(google_s[i][1], 'utf-8')))[2:-1]
+        subjects[google_s[i][1]] = google[i]
+        temp = [[google_s[i][1], base], [[], []]]
         for j in range(min(2, len(google[i][1]))):
             temp[-1][j] = [google[i][1][j][1], google[i][1][j][0]]
         temp.append([[], []])
@@ -41,7 +47,9 @@ def home():
                 break
         l.append(temp)
     for i in range(len(lms_s)):
-        temp = [lms_s[i][1], [[], []], [[], []]]
+        base = str(base64.b64encode(bytes(lms_s[i][1], 'utf-8')))[2:-1]
+        subjects[lms_s[i][1]] = lms[i]
+        temp = [[lms_s[i][1], base], [[], []], [[], []]]
         ct, ct1 = 0, 0
         for j, k in lms[i].items():
             for z in k[-1:0:-1]:
