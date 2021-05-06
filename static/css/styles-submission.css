@@ -71,6 +71,29 @@ h5 {
 
 /* row-1 styles */
 
+li.each__submission {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px inherit; 
+}
+
+h4.flex{
+  display: flex;
+  justify-content: space-between;
+}
+
+.metadata{
+  display: flex;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+
+
+div.metadata > span{
+  padding: 0 10px;
+}
+
 #row_1 {
   padding-top: 5vh;
 }
@@ -111,7 +134,7 @@ h5 {
 
 .sub {
   position:relative;
-  transition: ease-in-out 0.3s;
+  /* transition: ease-in-out 0.3s; */
   border-radius: 10px;
   padding: 2vh 3vw;
 }
@@ -122,7 +145,8 @@ h5 {
 }
 
 .link > li {
-  padding: 5px 0;
+  padding: 5px 2px;
+  margin: 7px 0;
 }
 
 div.submission > ul > li > a {
@@ -135,54 +159,10 @@ div.resource > ul > li > a {
   word-wrap:break-word;
 }
 
-/* METADATA */
-
-li.each__submission {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px inherit; 
-}
-
-h4.flex{
-  display: flex;
-  justify-content: space-between;
-}
-
-.metadata{
-  display: flex;
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-
-
-div.metadata > span{
-  padding: 0 10px;
-}
-
-/* inputFile */
-
-label#label__file{
-  font-size: 0.8rem;
-}
-
-input#myfile{
-  font-size: 0.8rem;
-  width: 200px;
-}
-
-input.myFile__submitBtn{
-  font-size: 0.8rem;
-}
-
 .view_all .view {
   position: absolute;
   bottom: 20px;
   right: 20px;
-}
-
-.sub:hover {
-  background: var(--primary-color2);
 }
 
 .resource {

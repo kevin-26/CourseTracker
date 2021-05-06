@@ -5,25 +5,74 @@
   <p>&nbsp;</p>
   <div class="container">
     <div class="row">
-      <div class="col-lg-4 col-md-6 mt-3 mb-3">
+      <!-- Pending variable: p: [[Title, URL, Date posted, Due Date, Total marks], ...]
+Submitted variable: s: [[Title, URL, Date posted, Due Date, Marks received, Total marks], ...] -->
+
+      <div class="col-lg-12 col-md-12 mt-3 mb-3">
         <div class="sub">
-          {% for subject in course %}
-          <h3 class="title"><a href="#">{{subject[0]}}</a></h3>
-          <div class="resource">
-            <h4 class="subtitle">Resources:</h4>
-            <ul class="resource-link link">
-              <li><a href="#" id="id_1">Oops concept</a></li>
-              <li><a href="#" id="id_2">Oops concept</a></li>
+          <h3 class="title">{{subject}}</h3>
+          <div class="submission">
+            <h4 class="subtitle flex">
+              Pending Submission:
+              <div class="metadata">
+                <span class="datePost">date</span
+                ><span class="dueDate">duedate</span>
+                <span class="marks">marks</span>
+              </div>
+            </h4>
+            {% for eachSub in p %}
+            <ul class="submission-link link">
+              <li class="each__submission">
+                <a href="{{eachSub[1]}}" id="id_1">{{eachSub[0]}} </a>
+                <div class="metadata">
+                  <span class="uploadFile__span">
+                    <form
+                      action="#"
+                      method="POST"
+                      enctype="multipart/form-data"
+                    >
+                      <label id="label__file" for="myfile">Select:</label>
+                      <input
+                        type="file"
+                        id="myfile"
+                        name="myfile"
+                        accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                        multiple
+                      />
+                      <input class="myFile__submitBtn" type="submit" />
+                    </form>
+                  </span>
+                  <span class="datePost">{{eachSub[2]}}</span
+                  ><span class="dueDate">{{eachSub[3]}}</span>
+                  <span class="marks">{{eachSub[4]}}</span>
+                </div>
+              </li>
             </ul>
+            {% endfor %}
           </div>
           <div class="submission">
-            <h4 class="subtitle">Submission:</h4>
+            <h4 class="subtitle flex">
+              Submitted Submission:
+              <div class="metadata">
+                <span class="datePost">date</span
+                ><span class="dueDate">duedate</span>
+                <span class="marks">marks</span>
+              </div>
+            </h4>
+            {% for eachSub in s %}
             <ul class="submission-link link">
-              <li><a href="#" id="id_1">Oops concept</a></li>
+              <li class="each__submission">
+                <a href="{{eachSub[1]}}" id="id_1">{{eachSub[0]}} </a>
+                <div class="metadata">
+                  <span class="datePost">{{eachSub[2]}}</span
+                  ><span class="dueDate">{{eachSub[3]}}</span>
+                  <span class="marks">{{eachSub[4]}} / {{eachSub[5]}}</span>
+                </div>
+              </li>
               <li><a href="#" id="id_2">Oops concept</a></li>
             </ul>
+            {% endfor %}
           </div>
-          <div class="view_all"><a href="#" class="view">view all</a></div>
         </div>
       </div>
     </div>
