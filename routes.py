@@ -55,3 +55,4 @@ def home():
         l.append(temp)
         print(l)
     return render_template("index.html", course = l)
+
