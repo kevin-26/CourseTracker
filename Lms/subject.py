@@ -33,6 +33,10 @@ def getSubject(driver, url : str) -> {} :
                     isResource = activity.get_attribute("class").split(' ')
                     if isResource[2] == "modtype_assign":
                         ref_data["is_resource"] = 0
+                        if activity.find_element_by_tag_name("form").find_element_by_tag_name("img").get_attribute("alt")[0] == 'C':
+                            ref_data["submission"] = "Submitted"
+                        else:
+                            ref_data["submission"] = "Not submitted"
                     elif isResource[2] == "modtype_resource":
                         ref_data["is_resource"] = 1
                     else:
@@ -55,4 +59,20 @@ def getSubject(driver, url : str) -> {} :
             c = chr(ord(c)+1)
         except:
             print(section.get_attribute('outerHTML'))
+    
+    for j, k in subject_data.items():
+        for z in k[1:]:
+            details = list(z.items())[0][1]
+            if details.get("is_resource") == 0:
+                driver.get(details["url"])
+                table = WebDriverWait(driver, timeout=10).until(expected_conditions.visibility_of(driver.find_element_by_class_name("generaltable")))
+                temp = table.find_elements_by_tag_name("tr")
+                grade = temp[1].find_element_by_tag_name("td").text
+                if grade[0] == "N":
+                    details["max_marks"] = "Not mentioned"
+                    details["marks_received"] = "No marks received"
+                else:
+                    details["max_marks"] = grade
+                    details["marks_received"] = grade
+                details["due_date"] = temp[2].find_element_by_tag_name("td").text
     return subject_data

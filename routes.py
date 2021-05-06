@@ -1,9 +1,8 @@
 from app import app
 from Lms import *
 from google_classroom import *
-import dateparser, datetime
+import dateparser, datetime, hashlib
 from flask import render_template
-import base64
 
 subjects = {}
 
@@ -18,8 +17,8 @@ def home():
     #print(google_s, google)
     #Latest assignments based on due date
     for i in range(len(google_s)):
-        base = str(base64.b64encode(bytes(google_s[i][1], 'utf-8')))[2:-1]
-        subjects[google_s[i][1]] = google[i]
+        base = hashlib.md5(google_s[i][1].encode()).hexdigest()
+        subjects[base] = [google_s[i][1], google[i]]
         temp = [[google_s[i][1], base], [[], []]]
         for j in range(min(2, len(google[i][1]))):
             temp[-1][j] = [google[i][1][j][1], google[i][1][j][0]]
@@ -47,8 +46,8 @@ def home():
                 break
         l.append(temp)
     for i in range(len(lms_s)):
-        base = str(base64.b64encode(bytes(lms_s[i][1], 'utf-8')))[2:-1]
-        subjects[lms_s[i][1]] = lms[i]
+        base = hashlib.md5(lms_s[i][1].encode()).hexdigest()
+        subjects[base] = [lms_s[i][1], lms[i]]
         temp = [[lms_s[i][1], base], [[], []], [[], []]]
         ct, ct1 = 0, 0
         for j, k in lms[i].items():
@@ -66,5 +65,24 @@ def home():
     # ['Cryptography and System Security_A_20_21', [['TY CSS IA-2 Approved -Not Approved LISt', 'https://lms-kjsce.somaiya.edu/mod/resource/view.php?id=21123'], ['IA-1 Topic Approval List', 'https://lms-kjsce.somaiya.edu/mod/resource/view.php?id=19234']], [[], []]],
     # ['Cryptography and System Security_A_20_21', [['TY CSS IA-2 Approved -Not Approved LISt', 'https://lms-kjsce.somaiya.edu/mod/resource/view.php?id=21123'], ['IA-1 Topic Approval List', 'https://lms-kjsce.somaiya.edu/mod/resource/view.php?id=19234']], [[], []]]]
     # print(l)
+    print(subjects)
     return render_template("home.html", course = l)
 
+@app.route("/subject/<string:id>")
+def subject(id):
+    value = subjects.get(id)
+    r, s = [], []
+    if type(value[1]) is list:
+        for j in value[1][0]:
+            s.append([j[1], j[0], j[2], j[3], j[-1], j[-2], j[-3]])
+        for j in value[1][1]:
+            r.append([j[1], j[0], j[2]])
+    else:
+        for j, k in value[1].items():
+            for z in k[-1:0:-1]:
+                details = list(z.items())[0][1]
+                if details.get("is_resource") == 1:
+                    r.append([list(z.items())[0][0], details.get('url'), details.get("upload_time")])
+                elif details.get("is_resource") == 0:
+                    s.append([list(z.items())[0][0], details.get("url"), details.get("upload_time"), details.get("due_date"), details.get("submission"), details.get("marks_received"), details.get("max_marks")])
+    return render_template("subject.html", resources = r, assignments = s, subject = value[0])
