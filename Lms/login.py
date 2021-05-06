@@ -65,5 +65,5 @@ def getCourseList (driver: webdriver):
         name = i.find_elements_by_tag_name('div')[1].find_element_by_tag_name('div').find_element_by_tag_name('a').find_element_by_class_name('multiline').text
         print("Are you currently enrolled in", name,"(Y/N)? ", end = '')
         if input().lower() == 'y':
-            id.append("https://lms-kjsce.somaiya.edu/course/view.php?id=" + str(i.get_attribute('data-course-id')))
+            id.append(["https://lms-kjsce.somaiya.edu/course/view.php?id=" + str(i.get_attribute('data-course-id')), name])
     return id

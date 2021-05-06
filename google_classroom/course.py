@@ -34,9 +34,10 @@ def courseDetails(driver: webdriver, url: str):
     total = driver.find_elements(By.CSS_SELECTOR, "div[jsname='rymPhb'] > div")
     for i in assign:
         total[i[0]].click()
-        time.sleep(2)
+        time.sleep(3)
         assignment = BeautifulSoup(driver.page_source, "lxml")
-        details = assignment.find_all(name="div", attrs={"class":"W4hhKd"})[-1].contents
+        WebDriverWait(driver, timeout = 6).until(expected_conditions.visibility_of(driver.find_elements_by_class_name("W4hhKd")[-1]))
+        details = assignment.find_all(name="div", attrs={"class":"W4hhKd"})[-1].contents #make DOM visible  
         i.append(details[1].string) #due date
         if i[-1] is None:
             i[-1] = "No due date"
@@ -60,11 +61,11 @@ def courseDetails(driver: webdriver, url: str):
         i[0] = driver.current_url
         driver.find_element_by_tag_name("nav").find_element_by_tag_name("div").find_element_by_tag_name("div").find_element_by_tag_name("div").find_element_by_tag_name("h1").find_element_by_tag_name("a").click()
         time.sleep(2)
-    print(assign)
+
     for i in material:
         total[i[0]].click()
         time.sleep(2)
         i[0] = driver.current_url
         driver.find_element_by_tag_name("nav").find_element_by_tag_name("div").find_element_by_tag_name("div").find_element_by_tag_name("div").find_element_by_tag_name("h1").find_element_by_tag_name("a").click()
         time.sleep(2)
-    print(material)
+    return assign, material

@@ -70,5 +70,5 @@ def getCourseList (driver: webdriver) -> []:
         name = i.find_element_by_tag_name('h2').find_element_by_tag_name('div').text
         print("Are you currently enrolled in", name,"(Y/N)? ", end = '')
         if input().lower() == 'y':
-            id.append("https://classroom.google.com/u/0/c/" + j)
+            id.append(["https://classroom.google.com/u/0/c/" + j, name])
     return id
