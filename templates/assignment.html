@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% block content %}
+
+<!-- ======================== Start Main Area ============================== -->
+<main class="site__main">
+  <p>&nbsp;</p>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 mt-3 mb-3">
+        <div class="sub">
+          {% for subject in course %}
+          <h3 class="title"><a href="#">{{subject[0]}}</a></h3>
+          <div class="resource">
+            <h4 class="subtitle">Resources:</h4>
+            <ul class="resource-link link">
+              <li><a href="#" id="id_1">Oops concept</a></li>
+              <li><a href="#" id="id_2">Oops concept</a></li>
+            </ul>
+          </div>
+          <div class="submission">
+            <h4 class="subtitle">Submission:</h4>
+            <ul class="submission-link link">
+              <li><a href="#" id="id_1">Oops concept</a></li>
+              <li><a href="#" id="id_2">Oops concept</a></li>
+            </ul>
+          </div>
+          <div class="view_all"><a href="#" class="view">view all</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+<!-- ======================== End Main Area ============================== -->
+
+{% endblock %}

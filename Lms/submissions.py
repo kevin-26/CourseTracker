@@ -8,7 +8,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
 
-def submission(url : str, filePath: str) -> {} : # needs url of submission and file path
+def submission(driver, url : str, filePath: str) -> {} : # needs url of submission and file path
     driver.get(url)
     time.sleep(3)
     button = driver.find_element_by_css_selector('div.fp-btn-add')

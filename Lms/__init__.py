@@ -5,8 +5,8 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 
-
-driver = webdriver.Chrome(executable_path=r"./chromedriver.exe")
+driver = webdriver.Chrome('/usr/bin/chromedriver')
+# driver = webdriver.Chrome(executable_path=r"./chromedriver.exe")
 r = requests.get("https://lms-kjsce.somaiya.edu/my", allow_redirects=False)
 if r.status_code >= 300:
     user_id = input("Please enter your mail-id:").strip()

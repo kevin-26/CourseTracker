@@ -31,6 +31,7 @@ def courseDetails(driver: webdriver, url: str):
                 assign.append([i, text, date])
             else:
                 material.append([i, text, date])
+    time.sleep(2)
     total = driver.find_elements(By.CSS_SELECTOR, "div[jsname='rymPhb'] > div")
     for i in assign:
         total[i[0]].click()

@@ -7,7 +7,8 @@ from bs4 import BeautifulSoup
 import requests, time, getpass
 
 
-driver = webdriver.Chrome(executable_path=r"./chromedriver.exe")
+driver = webdriver.Chrome('/usr/bin/chromedriver')
+# driver = webdriver.Chrome(executable_path=r"./chromedriver.exe")
 r = requests.get("https://classroom.google.com/u/0/h", allow_redirects=False)
 user_id, password = '',''
 if r.status_code >= 300:

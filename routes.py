@@ -53,6 +53,7 @@ def home():
                     temp[2][ct1] = [list(z.items())[0][0], details.get("url")]
                     ct1 += 1
         l.append(temp)
-        print(l)
-    return render_template("index.html", course = l)
+    # l = [['Applied ML with TF Batch 1', [[], []], [['IA2', 'https://classroom.google.com/u/0/c/MjY0MTE2NzQ3MjI0/a/MjY0MTE2NzQ3MjUx/details'], ['IA1', 'https://classroom.google.com/u/0/c/MjY0MTE2NzQ3MjI0/a/MjY0MTE2NzQ3MjM4/details']]], ['Cryptography and System Security_A_20_21', [['TY CSS IA-2 Approved -Not Approved LISt', 'https://lms-kjsce.somaiya.edu/mod/resource/view.php?id=21123'], ['IA-1 Topic Approval List', 'https://lms-kjsce.somaiya.edu/mod/resource/view.php?id=19234']], [[], []]]]
+    print(l)
+    return render_template("home.html", course = l)
 
