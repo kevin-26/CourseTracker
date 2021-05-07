@@ -22,7 +22,10 @@ def submission(driver, url : str, filePath: str) -> {} : # needs url of submissi
     chooseFileBtn = driver.find_element_by_css_selector('button.fp-upload-btn')
     actions.click(chooseFileBtn)
     actions.perform()
+    time.sleep(2)
+    #print(driver.current_url)
     submitBtn = driver.find_element_by_css_selector('input#id_submitbutton')
+    #print(submitBtn)
     actions.click(submitBtn)
     actions.perform()
     

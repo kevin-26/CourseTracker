@@ -1,8 +1,8 @@
 from app import app
 from Lms import *
 from google_classroom import *
-import dateparser, datetime, hashlib
-from flask import render_template
+import dateparser, datetime, hashlib, os
+from flask import render_template, request
 
 subjects = {}
 
@@ -65,7 +65,7 @@ def home():
     # ['Cryptography and System Security_A_20_21', [['TY CSS IA-2 Approved -Not Approved LISt', 'https://lms-kjsce.somaiya.edu/mod/resource/view.php?id=21123'], ['IA-1 Topic Approval List', 'https://lms-kjsce.somaiya.edu/mod/resource/view.php?id=19234']], [[], []]],
     # ['Cryptography and System Security_A_20_21', [['TY CSS IA-2 Approved -Not Approved LISt', 'https://lms-kjsce.somaiya.edu/mod/resource/view.php?id=21123'], ['IA-1 Topic Approval List', 'https://lms-kjsce.somaiya.edu/mod/resource/view.php?id=19234']], [[], []]]]
     # print(l)
-    print(subjects)
+    #print(subjects)
     return render_template("home.html", course = l)
 
 @app.route("/subject/<string:id>")
@@ -87,9 +87,18 @@ def subject(id):
                     s.append([list(z.items())[0][0], details.get("url"), details.get("upload_time"), details.get("due_date"), details.get("submission"), details.get("marks_received"), details.get("max_marks")])
     return render_template("subject.html", resources = r, assignments = s, subject = value[0])
     
-@app.route("/assignments")
+@app.route("/assignments", methods=["GET", "POST"])
 def assignment():
     p, s = [], []
+    if request.method == "POST":
+        url = request.form["url"]
+        #for uploaded_file in request.files.getlist('myfile'):
+        if request.files["myfile"].filename != '':
+            uploaded_file = request.files["myfile"]
+            print('a')
+            uploaded_file.save(uploaded_file.filename)
+            submissions.submission(driver1, url + "&action=editsubmission", os.path.join(app.root_path, uploaded_file.filename))
+        return render_template("assignment.html", p = p, s = s, subject="Test") 
     for i in subjects.values():
         if type(i[1]) is list:
             for j in i[1][0]:

@@ -4,9 +4,12 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
+from pathlib import Path
 import requests, time, getpass
 
-
+#config = Path("C:\Kevin\Sem6-MIP\AssignmentTracker\xyz.txt")
+#if config.is_file():
+    #user_id = 
 #driver = webdriver.Chrome('/usr/bin/chromedriver')
 driver = webdriver.Chrome(executable_path=r"./chromedriver.exe")
 r = requests.get("https://classroom.google.com/u/0/h", allow_redirects=False)

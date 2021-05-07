@@ -10,15 +10,15 @@ Submitted variable: s: [[Title, URL, Date posted, Due Date, Marks received, Tota
 
       <div class="col-lg-12 col-md-12 mt-3 mb-3">
         <div class="sub">
-          <h3 class="title">{{subject}}</h3>
+          <h3 class="title">Assignments</h3>
           <div class="submission">
             <h4 class="subtitle flex">
               Pending Submission:
-              <div class="metadata">
+              {# <div class="metadata">
                 <span class="datePost">date</span
                 ><span class="dueDate">duedate</span>
                 <span class="marks">marks</span>
-              </div>
+              </div> #}
             </h4>
             {% for eachSub in p %}
             <ul class="submission-link link">
@@ -39,6 +39,7 @@ Submitted variable: s: [[Title, URL, Date posted, Due Date, Marks received, Tota
                         accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                         multiple
                       />
+					  <input type="hidden" name="url" value="{{ eachSub[1] }}">
                       <input class="myFile__submitBtn" type="submit" />
                     </form>
                   </span>
@@ -53,11 +54,11 @@ Submitted variable: s: [[Title, URL, Date posted, Due Date, Marks received, Tota
           <div class="submission">
             <h4 class="subtitle flex">
               Submitted Submission:
-              <div class="metadata">
+              {# <div class="metadata">
                 <span class="datePost">date</span
                 ><span class="dueDate">duedate</span>
                 <span class="marks">marks</span>
-              </div>
+              </div> #}
             </h4>
             {% for eachSub in s %}
             <ul class="submission-link link">
