@@ -109,6 +109,17 @@ h5 {
 
 /* row-2 */
 
+/* .subject__links {
+  position: relative;
+  display: flex;
+}
+
+.subject__links > li {
+  list-style: none;
+  margin-top: 7px;
+  margin-bottom: 7px;
+} */
+
 .sub {
   position:relative;
   transition: ease-in-out 0.3s;
@@ -150,8 +161,12 @@ h4.flex{
 
 .metadata{
   display: flex;
-  font-size: 1rem;
+  font-size: 0.7rem;
   font-weight: 400;
+}
+
+.metadata > span{
+  font-size: 0.7rem;
 }
 
 

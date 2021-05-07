@@ -93,7 +93,7 @@ def assignment():
     for i in subjects.values():
         if type(i[1]) is list:
             for j in i[1][0]:
-                if j[-1][0] == 'T' || j[-1][0] == 'G':
+                if j[-1][0] == 'T' or j[-1][0] == 'G':
                     s.append([j[1], j[0], j[2], j[3], j[5], j[4]])
                 else:
                     p.append([j[1], j[0], j[2], j[3], j[4]])
