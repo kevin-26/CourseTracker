@@ -23,103 +23,100 @@
 </div>
 
 <div align="center">
-<a href="https://ibb.co/tsCYy81"><img src="https://i.ibb.co/2tKcXgp/image.png" alt="image" border="0"></a>
+<a href="https://ibb.co/tsCYy81"><img src="https://i.ibb.co/2tKcXgp/image.png" alt="architecture" border="0"></a>
 </div>
+<br>
 
 The project uses selenium and beautifulsoup4 for web automation and scraping. A flask server is setup for webapp communication
 The server sends the data to the frontend in various views
+
+#### Tech stack
+- Frontend - HTML, CSS, JavaScript, Bootstrap
+- Backend - Flask, Selenium, Beautifulsoup4 
 
 <div align="center">
     <h3>Client<h3>
 </div>
 
-The client can submit new tasks or view tasks previously submitted. Screenshots:
+<div align="center"><h5> Home </h5>
+The Home page displays all the subjects along with the latest 2 resources and assignments (if not submitted)
+</div>
 
+<div align="center">
+<a href="https://ibb.co/tsCYy81"><img src="https://i.ibb.co/2tKcXgp/image.png" alt="Home" border="0"></a>
+</div>
 
+<div align="center"><h5> Subject View </h5>
+The Subject page displays resources and assignments of the selected subject
+</div>
+<div align="center">
+<a href="https://ibb.co/tsCYy81"><img src="https://i.ibb.co/2tKcXgp/image.png" alt="Subject" border="0"></a>
+</div>
 
-<div align="center"><h5> Dashhboard </h5></div>
+<div align="center"><h5> Assignment View </h5>
+The Assignment page displays all the pending assignments of all the subjects
+</div>
+<div align="center">
+<a href="https://ibb.co/tsCYy81"><img src="https://i.ibb.co/2tKcXgp/image.png" alt="Assignment" border="0"></a>
+</div>
 
-
-
-
-<div align="center"><h5> View submitted tasks </h5></div>
-
-
-
-<div align="center"><h5> Create new task </h5></div>
-
-
-
-<div align="center"><h5> View details of task</h5></div>
 
 #### Using API endpoints
 
 ```
-POST /upload/<page_num>: Get details for the submitted tasks
+GET /home: Get details for all the subjects 
 
-POST /jobs/<job_id>: Get info about a specific task
+GET /subject/<string:id>: Get info about the specific subject
+
+GET /home: Get details for all the subjects 
+
+GET /assignments: Get info about all the pending submissions
+
+POST /assignments/<assignment:id>: Submit a file for the specific assginment(valid for LMS submission)
+
 ```
 
 <div align="center">
     <h3>Future work<h3>
 </div>
 
-- [ ] Add charts on dashboard
+- [ ] Integrating MS Teams
 - [ ] Add pagination in frontend
-- [ ] Add support for more languages
-- [ ] Safe execution of code
-- [ ] Add option for batch file upload
-- [ ] Notify users when task is completed
-- [ ] Multiple views for different users
+- [ ] Adding submissions for google classroom
+- [ ] Building a 3 layer architecture
+- [ ] Notify users when assignment is submitted
 - [ ] Add logging
+
+<div align="center">
+    <h3>Requirements</h3>
+</div>
+All the requirements of the project are available in requirements.txt file
 
 
 <div align="center">
     <h3>Running the project locally<h3>
 </div>
 
-Setup the RabbitMQ server:
-#### Using docker
+Setup the server:
 
 ```
-docker run -it --rm --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3.8
+pip install -r requirements.txt
 ```
 
-Run the flask server for the client using 
+Setting up the environment
+
 ```
 python3 client/app.py
 ```
 
-Running the worker nodes:
+Running the flask server (in no reload mode - in normal mode the server is buggy)
 
 ```
-$ cd workers/
-
-$ docker-compose up --scale python=2 --scale cpp=3
-```
-
-![](./assets/start.png)
-
-<div align="center"><h5> Scaling the services using docker-compose</h5></div>
-
-
-
-Since the project only supports pymongo and uses mongo atlas to store data, you need to define an .env file (in the folders client/, workers/python/ and workers/cpp/) with the following two parameters:
-
-```
-RABBITMQ_SERVER: host running the rabbitMQ broker
-
-MONGO_URL: Where the data is to be stored.
+$ python3 flask:run --no-reload
 ```
 
 
 
 #### ...but why would I use this?
 
-This isn't a completed project. It's far from done. But the possibilities in which this project could progress are endless - this just serves as a base to build upon a specific application.
-
-The two options that I had in mind while building the project were:
-
-- Use it as a submission system for programming contests (something like codechef has). You can collect details as required by the application and use those to create charts to display on the dashboard. (Just make sure to ensure only executing safe code).
-
-- Training ml/dl models with different hyperparameters in parallel across various devices if you have access to multiple idle machines (like access to a computer lab). It would make it convenient and fast. Further features that could be added in this include notifications when a task is done, comparision among the various results etc..
+This isn't a completed project. It's far from done. But the future work of the project can act as a single client for some of the learning management systems available right now.
