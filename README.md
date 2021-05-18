@@ -103,18 +103,29 @@ Setup the server:
 pip install -r requirements.txt
 ```
 
-Setting up the environment
-
+Setting up the environment:
+On Linux:
 ```
-python3 client/app.py
+$ set FLASK_APP="app:app"
+$ set FLASK_ENV="development"
+```
+On Windows:
+```
+$ set FLASK_APP="app:app"
+$ set FLASK_ENV="development"
 ```
 
-Running the flask server (in no reload mode - in normal mode the server is buggy)
-
+Running the flask server (in no reload mode - in normal mode the server is buggy):
 ```
-$ python3 flask:run --no-reload
+$ flask run --no-reload
 ```
 
+Login credentials and selecting valid subjects
+```
+$ flask run --no-reload
+```
+
+The client can be viewed at 5000 port
 
 
 #### ...but why would I use this?
