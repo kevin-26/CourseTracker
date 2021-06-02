@@ -6,12 +6,19 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 from pathlib import Path
 import requests, time, getpass
+from selenium.webdriver.chrome.options import Options
 
 #config = Path("C:\Kevin\Sem6-MIP\AssignmentTracker\xyz.txt")
 #if config.is_file():
     #user_id = 
 #driver = webdriver.Chrome('/usr/bin/chromedriver')
-driver = webdriver.Chrome(executable_path=r"./chromedriver.exe")
+options = Options()
+options.add_argument("--headless") #headless mode
+options.add_argument('--disable-gpu') 
+options.add_argument('window-size=1920x1080') #to ensure desktop site is loaded
+options.add_argument('--disable-extensions')
+options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36")#to ensure latest version of the site is loaded
+driver = webdriver.Chrome(options=options, executable_path=r"./chromedriver.exe")
 r = requests.get("https://classroom.google.com/u/0/h", allow_redirects=False)
 user_id, password = '',''
 if r.status_code >= 300:

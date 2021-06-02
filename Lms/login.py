@@ -10,6 +10,7 @@ def logIn(driver : webdriver, user_id : str, password : str):
     login.find_element_by_class_name("btn").click()
     # time.sleep(1)
     while(True):
+        driver.get_screenshot_as_file("screenshot.png")
         driver.find_element_by_id("identifierId").send_keys(user_id)
         driver.find_element_by_id("identifierNext").click()
         time.sleep(2)

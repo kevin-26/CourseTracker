@@ -31,10 +31,12 @@ def courseDetails(driver: webdriver, url: str):
                 assign.append([i, text, date])
             else:
                 material.append([i, text, date])
-    time.sleep(2)
+    time.sleep(3)
     total = driver.find_elements(By.CSS_SELECTOR, "div[jsname='rymPhb'] > div")
     for i in assign:
-        total[i[0]].click()
+        #WebDriverWait(driver, timeout = 5).until(expected_conditions.element_to_be_clickable((By.CSS_SELECTOR, "div[jsname='rymPhb']")))
+        driver.execute_script("arguments[0].click();", total[i[0]])
+        #total[i[0]].click()
         time.sleep(3)
         assignment = BeautifulSoup(driver.page_source, "lxml")
         WebDriverWait(driver, timeout = 6).until(expected_conditions.visibility_of(driver.find_elements_by_class_name("W4hhKd")[-1]))
